@@ -1,0 +1,26 @@
+{
+  "name": "ghogus-webapi",
+  "version": "1.0.0",
+  "description": "Web API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claudiocarvalhojr/ghogus-webapi.git"
+  },
+  "author": "Claudio Carvalho Jr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/claudiocarvalhojr/ghogus-webapi/issues"
+  },
+  "homepage": "https://github.com/claudiocarvalhojr/ghogus-webapi#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.4"
+  }
+}
