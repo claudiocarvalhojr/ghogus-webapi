@@ -22,15 +22,15 @@ function findCustomer(collection, id, callback) {
 }
 
 function insertCustomer(collection, customer, callback) {
-    global.conn.collection(collection).insert(customer, callback);
+    global.conn.collection(collection).insertOne(customer, callback);
 }
 
 function updateCustomer(collection, id, customer, callback) {
-    global.conn.collection(collection).update({ _id: new ObjectId(id) }, customer, callback)
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, customer, callback)
 }
 
 function patchCustomer(collection, id, updates, callback) {
-    global.conn.collection(collection).update({ _id: new ObjectId(id) }, { $set: updates }, callback)
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, { $set: updates }, callback)
 }
 
 function deleteCustomer(collection, id, callback) {
