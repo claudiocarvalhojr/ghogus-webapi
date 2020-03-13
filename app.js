@@ -70,5 +70,5 @@ router.delete('/clientes/:id', (req, res) => {
 
 app.use('/', router);
 app.listen(port, function () {
-    console.log('API => Status: OK... Listening on Port: %s... Environment: %s', port, process.env.NODE_ENV);
+    console.log('API => Status: OK... DB: OK... Port: %s... Environment: %s...', port, process.env.NODE_ENV);
 });
