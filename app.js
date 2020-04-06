@@ -7,7 +7,7 @@ global.db = require('./db');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: true }));
