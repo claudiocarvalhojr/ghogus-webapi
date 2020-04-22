@@ -13,28 +13,36 @@ else if (process.env.NODE_ENV === 'development') {
 
 const ObjectId = require('mongodb').ObjectId;
 
-function findCustomers(collection, callback) {
+function findAll(collection, callback) {
     global.conn.collection(collection).find().toArray(callback) 
 }
 
-function findCustomer(collection, id, callback) {
+function findLast(collection, param, callback) {
+    global.conn.collection(collection).find().sort(param).limit(1).toArray(callback)
+}
+
+function findOne(collection, id, callback) {
     global.conn.collection(collection).findOne(new ObjectId(id), callback)
 }
 
-function insertCustomer(collection, customer, callback) {
-    global.conn.collection(collection).insertOne(customer, callback);
+function findSKU(collection, sku, callback) {
+    global.conn.collection(collection).find({'sku': sku}).sort({'sku': 1}).limit(1).toArray(callback)
 }
 
-function updateCustomer(collection, id, customer, callback) {
-    global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, customer, callback)
+function insertOne(collection, object, callback) {
+    global.conn.collection(collection).insertOne(object, callback);
 }
 
-function patchCustomer(collection, id, updates, callback) {
+function updateOne(collection, id, object, callback) {
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, object, callback)
+}
+
+function patchOne(collection, id, updates, callback) {
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, { $set: updates }, callback)
 }
 
-function deleteCustomer(collection, id, callback) {
+function deleteOne(collection, id, callback) {
     global.conn.collection(collection).deleteOne({ _id: new ObjectId(id) }, callback)
 }
 
-module.exports = { findCustomers, findCustomer, insertCustomer, updateCustomer, patchCustomer, deleteCustomer }
+module.exports = { findAll, findLast, findOne, findSKU, insertOne, updateOne, patchOne, deleteOne }
