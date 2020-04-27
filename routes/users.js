@@ -3,13 +3,25 @@ var router = express.Router();
 
 global.db = require('../db');
 
-router.get('/', (req, res) => res.json({ message: 'OK' }));
+function log(message) {
+    let data = new Date()
+    console.log('****************************************')
+    console.log(data.toLocaleString() + ' - ' + message)
+    // console.log('****************************************')
+}
+
+router.get('/', (req, res) => {
+	console.log('users/home()...')
+	res.json({ message: 'OK' })
+})
 
 // GET /users
-router.get('/users', (req, res) => global.db.findAll('users', (err, docs) => {
-    if (err) { res.status(500).json(err) }
-    else { res.json(docs) }
-}));
+router.get('/users', (req, res) => {
+	global.db.findAll('users', (err, docs) => {
+		if (err) { res.status(500).json(err) }
+		else { res.json(docs) }
+	})
+})
 
 // GET /user/{id}
 router.get('/user', (req, res) => {	
@@ -20,7 +32,7 @@ router.get('/user', (req, res) => {
 		if (err) { res.status(500).json(err) }
 		else { res.json(docs) }
 	})
-});
+})
 
 // POST /user
 router.post('/user', (req, res) => {
@@ -54,4 +66,4 @@ router.delete('/user/:id', (req, res) => {
     })
 })
 
-module.exports = router;
+module.exports = router

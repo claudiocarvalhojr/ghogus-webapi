@@ -3,7 +3,17 @@ var router = express.Router();
 
 global.db = require('../db');
 
-router.get('/', (req, res) => res.json({ message: 'OK' }));
+function log(message) {
+    let data = new Date()
+    console.log('****************************************')
+    console.log(data.toLocaleString() + ' - ' + message)
+    // console.log('****************************************')
+}
+
+router.get('/', (req, res) => {
+	log('customers/home()...')
+	res.json({ message: 'OK' })
+})
 
 // GET /customers
 router.get('/customers', (req, res) => global.db.findAll('customers', (err, docs) => {
@@ -55,4 +65,4 @@ router.delete('/customers/:id', (req, res) => {
     })
 })
 
-module.exports = router;
+module.exports = router

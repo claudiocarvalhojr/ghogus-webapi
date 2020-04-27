@@ -3,25 +3,44 @@ var router = express.Router();
 
 global.db = require('../db');
 
-router.get('/', (req, res) => res.json({ message: 'OK' }));
+function log(message) {
+    let data = new Date()
+    console.log('****************************************')
+    console.log(data.toLocaleString() + ' - ' + message)
+    // console.log('****************************************')
+}
+
+router.get('/', (req, res) => {
+	log('images/home()...')
+	res.json({ message: 'OK' })
+})
 
 // GET /images
-router.get('/images', (req, res) => global.db.findAll('images', (err, docs) => {
-    if (err) { res.status(500).json(err) }
-    else { res.json(docs) }
-}));
+router.get('/images', (req, res) => {
+	global.db.findAll('images', (err, docs) => {
+		if (err) { res.status(500).json(err) }
+		else { res.json(docs) }
+	})
+})
 
-// GET /images
-router.get('/images/last', (req, res) => global.db.findLast('images', {'_id': -1}, (err, doc) => {
-    if (err) { res.status(500).json(err) }
-    else { res.json(doc) }
-}));
-
+// não descomentar, conflita com o /imagens/last
 // GET /images/{id}
-router.get('/images/:id', (req, res) => global.db.findOne('images', req.query.id, (err, docs) => {
-    if (err) { res.status(500).json(err) }
-    else { res.json(docs) }
-}));
+//router.get('/images/:id', (req, res) => {
+//	console.log('/images/:id...')
+//	global.db.findOne('images', req.query.id, (err, docs) => {
+//		if (err) { res.status(500).json(err) }
+//		else { res.json(docs) }
+//	})
+//})
+
+// GET /images
+router.get('/images/last', (req, res) => {
+	console.log('/images/last...')
+	global.db.findLast('images', (err, doc) => {
+		if (err) { res.status(500).json(err) }
+		else { res.json(doc) }
+	})
+})
 
 // POST /images
 router.post('/images', (req, res) => {
@@ -55,4 +74,4 @@ router.delete('/images/:id', (req, res) => {
     })
 })
 
-module.exports = router;
+module.exports = router

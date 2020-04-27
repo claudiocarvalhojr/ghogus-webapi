@@ -16,6 +16,7 @@ var customers = require('./routes/customers');
 var users = require('./routes/users');
 var products = require('./routes/products');
 var images = require('./routes/images');
+var cart = require('./routes/cart');
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -27,6 +28,7 @@ app.use('/', customers);
 app.use('/', users);
 app.use('/', products);
 app.use('/', images);
+app.use('/', cart);
 
 app.listen(port, function () {
     console.log('API => Status: OK... DB: OK... Port: %s... Environment: %s...', port, process.env.NODE_ENV);
