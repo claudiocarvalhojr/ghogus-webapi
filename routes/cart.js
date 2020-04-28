@@ -57,18 +57,37 @@ router.post('/cart', (req, res) => {
 
 // PUT /cart/{id}
 router.put('/cart/:id', (req, res) => {
-	console.log('/cart/:id ' + req.params.id)
+	console.log('put/cart/:id ' + req.params.id)
     global.db.updateOne('cart', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
     })
 })
 
-// PATCH /cart/{id}
-router.patch('/cart/:id', (req, res) => {
-    global.db.patch('cart', req.params.id, req.body, (err, result) => {
+// PATCH /cart/set/{id}
+router.patch('/cart/set/:id', (req, res) => {
+	console.log('patch/cart/set/:id ' + req.params.id)
+    global.db.set('cart', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
+    })
+})
+
+// PATCH /cart/push/{id}
+router.patch('/cart/push/:id', (req, res) => {
+	console.log('patch/cart/push/:id ' + req.params.id)
+    global.db.push('cart', req.params.id, req.body, (err, result) => {
+        if (err) { res.status(500).json(err) }
+        else { res.json({ message: 'Cart atualizado com sucesso!' }) }
+    })
+})
+
+// DELETE /cart/pull/{id}
+router.delete('/cart/pull/:id', (req, res) => {
+	console.log('delete/cart/pull/:id ' + req.params.id)
+    global.db.pull('cart', req.params.id, (err, result) => {
+        if (err) { res.status(500).json(err) }
+        else { res.json({ message: 'Cart excluído com sucesso!' }) }
     })
 })
 
