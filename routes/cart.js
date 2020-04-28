@@ -57,6 +57,7 @@ router.post('/cart', (req, res) => {
 
 // PUT /cart/{id}
 router.put('/cart/:id', (req, res) => {
+	console.log('/cart/:id ' + req.params.id)
     global.db.updateOne('cart', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
@@ -65,7 +66,7 @@ router.put('/cart/:id', (req, res) => {
 
 // PATCH /cart/{id}
 router.patch('/cart/:id', (req, res) => {
-    global.db.patchOne('cart', req.params.id, req.body, (err, result) => {
+    global.db.patch('cart', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
     })

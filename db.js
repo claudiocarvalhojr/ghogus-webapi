@@ -37,10 +37,10 @@ function find(collection, search, callback) {
 	let limit = obj.limit
 	let fields = obj.fields
 	let ordination = obj.ordination	
-	console.log('2) values: ' + values)
-	console.log('3) fields: ' + fields)
-	console.log('4) ordination: ' + ordination)
-	console.log('5) limit: ' + limit)	
+//	console.log('2) values: ' + values)
+//	console.log('3) fields: ' + fields)
+//	console.log('4) ordination: ' + ordination)
+//	console.log('5) limit: ' + limit)	
     global.conn.collection(collection).find(values).sort({fields:ordination}).limit(limit).toArray(callback)
 }
 
@@ -56,12 +56,21 @@ function insertOne(collection, object, callback) {
 
 function updateOne(collection, id, object, callback) {
 	log(collection + '/updateOne()...')
+	console.log('id: ' + id)
+	console.log('object: ' + JSON.stringify(object))
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, object, callback)
 }
 
 function patchOne(collection, id, updates, callback) {
-	log(collection + '/updateOne()...')
+	log(collection + '/patchOne()...')
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, { $set: updates }, callback)
+}
+
+function patch(collection, id, updates, callback) {
+	log(collection + '/patch()...')	
+	let ids = id.split('_')	
+	console.log('ids1: ' + ids[0] + ' | ids2: ' + ids[1])	
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(ids[0]), 'products._id': ids[1]}, { $set: updates }, callback)
 }
 
 function deleteOne(collection, id, callback) {
@@ -69,4 +78,4 @@ function deleteOne(collection, id, callback) {
     global.conn.collection(collection).deleteOne({ _id: new ObjectId(id) }, callback)
 }
 
-module.exports = { findAll, findLast, findOne, find, insertOne, updateOne, patchOne, deleteOne }
+module.exports = { findAll, findLast, findOne, find, insertOne, updateOne, patch, patchOne, deleteOne }
