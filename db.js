@@ -69,26 +69,19 @@ function patchOne(collection, id, updates, callback) {
 function set(collection, id, updates, callback) {
 	log(collection + '/set...')	
 	let ids = id.split('_')	
-	console.log('ID1: ' + ids[0])
-	console.log('ID2: ' + ids[1])	
+//	console.log('ID1: ' + ids[0])
+//	console.log('ID2: ' + ids[1])	
     global.conn.collection(collection).updateOne({ _id: new ObjectId(ids[0]), 'products._id': ids[1]}, { $set: updates }, callback)
 }
 
 function push(collection, id, updates, callback) {
 	log(collection + '/push...')	
-//	let ids = id.split('_')	
-	console.log('ID: ' + id)
-//	console.log('ID1: ' + ids[0])
-//	console.log('ID2: ' + ids[1])	
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id)}, { $set: updates }, callback)
 }
 
 function pull(collection, id, updates, callback) {
-	log(collection + '/pull...')
-	let ids = id.split('_')	
-	console.log('ID1: ' + ids[0])
-	console.log('ID2: ' + ids[1])	
-    global.conn.collection(collection).deleteOne({ _id: new ObjectId(ids[0]), 'products._id': ids[1] }, { $pull: updates }, callback)
+	log(collection + '/pull...')	
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(id)}, {$pull: updates }, callback)
 }
 
 function deleteOne(collection, id, callback) {

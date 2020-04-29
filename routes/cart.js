@@ -82,10 +82,10 @@ router.patch('/cart/push/:id', (req, res) => {
     })
 })
 
-// DELETE /cart/pull/{id}
-router.delete('/cart/pull/:id', (req, res) => {
-	console.log('delete/cart/pull/:id ' + req.params.id)
-    global.db.pull('cart', req.params.id, (err, result) => {
+// PATCH /cart/pull/{id}
+router.patch('/cart/pull/:id', (req, res) => {
+	console.log('patch/cart/pull/:id ' + req.params.id)
+    global.db.pull('cart', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart excluído com sucesso!' }) }
     })
