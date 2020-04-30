@@ -24,15 +24,15 @@ router.get('/cart', (req, res) => {
 })
 
 // GET /cart/{id}
-//router.get('/cart/:id', (req, res) => {
-//	global.db.findOne('cart', req.params.id, (err, docs) => {
-//    if (err) { res.status(500).json(err) }
-//    else { res.json(docs) }
-//	})
-//})
+router.get('/cart/:id', (req, res) => {
+	global.db.findOne('cart', req.params.id, (err, docs) => {
+    if (err) { res.status(500).json(err) }
+    else { res.json(docs) }
+	})
+})
 
 // GET /cart/{search}
-router.get('/cart/:search', (req, res) => {
+router.get('/cart/search/:search', (req, res) => {
 	global.db.find('cart', req.params.search, (err, docs) => {	
 		if (err) { res.status(500).json(err) }
 		else { res.json(docs) }
