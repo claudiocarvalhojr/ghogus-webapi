@@ -64,10 +64,10 @@ router.put('/cart/:id', (req, res) => {
     })
 })
 
-// PATCH /cart/set/{id}
-router.patch('/cart/set/:id', (req, res) => {
-	console.log('patch/cart/set/:id ' + req.params.id)
-    global.db.set('cart', req.params.id, req.body, (err, result) => {
+// PATCH /cart/{id}
+router.patch('/cart/:id', (req, res) => {
+	console.log('patch/cart/:id ' + req.params.id)
+    global.db.patchOne('cart', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
     })
@@ -77,6 +77,15 @@ router.patch('/cart/set/:id', (req, res) => {
 router.patch('/cart/push/:id', (req, res) => {
 	console.log('patch/cart/push/:id ' + req.params.id)
     global.db.push('cart', req.params.id, req.body, (err, result) => {
+        if (err) { res.status(500).json(err) }
+        else { res.json({ message: 'Product inserido com sucesso!' }) }
+    })
+})
+
+// PATCH /cart/set/{id}
+router.patch('/cart/set/:id', (req, res) => {
+	console.log('patch/cart/set/:id ' + req.params.id)
+    global.db.set('cart', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
     })
