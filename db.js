@@ -26,28 +26,48 @@ function findAll(collection, callback) {
 }
 
 function findOne(collection, id, callback) {
-	log(collection + '/findOne(...')
+	log(collection + '/findOne(id)...')
     global.conn.collection(collection).findOne(new ObjectId(id), callback)
 }
 
+function findSKU(collection, value, callback) {
+	log(collection + '/findSKU(name, value)...')
+//	console.log('NAME: ' + field)
+//	console.log('NAME: ' + typeof field)
+//	console.log('VALUE: ' + value)
+//	let obj = {values:{field : value}}
+//	let obj = {sku : value}
+//	console.log('OBJ: ' + JSON.stringify(obj))
+//	console.log('SKU: ' + JSON.stringify(obj.sku))
+    global.conn.collection(collection).findOne({sku: value}, callback)
+}
+
 function find(collection, search, callback) {
-	log(collection + '/find...')
+	log(collection + '/find(search)...')
 	let obj = JSON.parse(search)
 	let values = obj.values
 	let limit = obj.limit
 	let fields = obj.fields
 	let ordination = obj.ordination	
-//	console.log('2) values: ' + values)
-//	console.log('3) fields: ' + fields)
-//	console.log('4) ordination: ' + ordination)
-//	console.log('5) limit: ' + limit)	
+//	console.log('1) values: ' + JSON.stringify(values))
+//	console.log('2) fields: ' + fields)
+//	console.log('3) ordination: ' + ordination)
+//	console.log('4) limit: ' + limit)	
     global.conn.collection(collection).find(values).sort({fields:ordination}).limit(limit).toArray(callback)
 }
 
-function findLast(collection, callback) {
-	log(collection + '/findLast...')
-    global.conn.collection(collection).find().sort({'_id': -1}).limit(1).toArray(callback)
+function findLast(collection, search, callback) {
+	log(collection + '/findLast(search)...')
+	let obj = JSON.parse(search)
+	let values = obj.values
+//	console.log('1) values: ' + JSON.stringify(values))
+    global.conn.collection(collection).find(values).sort({'registrationDate':-1}).limit(1).toArray(callback)
 }
+
+//function findLast(collection, callback) {
+//	log(collection + '/findLast()...')
+//   global.conn.collection(collection).find().sort({'_id': -1}).limit(1).toArray(callback)
+//}
 
 function insertOne(collection, object, callback) {
 	log(collection + '/insertOne...')
@@ -56,8 +76,8 @@ function insertOne(collection, object, callback) {
 
 function updateOne(collection, id, object, callback) {
 	log(collection + '/updateOne...')
-	console.log('id: ' + id)
-	console.log('object: ' + JSON.stringify(object))
+//	console.log('id: ' + id)
+//	console.log('object: ' + JSON.stringify(object))
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, object, callback)
 }
 
@@ -89,4 +109,4 @@ function deleteOne(collection, id, callback) {
     global.conn.collection(collection).deleteOne({ _id: new ObjectId(id) }, callback)
 }
 
-module.exports = { findAll, findLast, findOne, find, insertOne, updateOne, set, push, patchOne, pull, deleteOne }
+module.exports = { findAll, findLast, findOne, findSKU, find, insertOne, updateOne, set, push, patchOne, pull, deleteOne }

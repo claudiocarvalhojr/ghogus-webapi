@@ -25,13 +25,13 @@ router.get('/cart', (req, res) => {
 
 // GET /cart/{id}
 router.get('/cart/:id', (req, res) => {
-	global.db.findOne('cart', req.params.id, (err, docs) => {
+	global.db.findOne('cart', req.params.id, (err, doc) => {
     if (err) { res.status(500).json(err) }
-    else { res.json(docs) }
+    else { res.json(doc) }
 	})
 })
 
-// GET /cart/{search}
+// GET /cart/search/{search}
 router.get('/cart/search/:search', (req, res) => {
 	global.db.find('cart', req.params.search, (err, docs) => {	
 		if (err) { res.status(500).json(err) }
@@ -39,11 +39,11 @@ router.get('/cart/search/:search', (req, res) => {
 	})
 })
 
-// GET /cart
-router.get('/cart/last', (req, res) => {
-	global.db.findLast('cart', (err, doc) => {
+// GET /cart/last/{search}
+router.get('/cart/last/:search', (req, res) => {
+	global.db.findLast('cart', req.params.search, (err, docs) => {
 		if (err) { res.status(500).json(err) }
-		else { res.json(doc) }
+		else { res.json(docs) }
 	})
 })
 

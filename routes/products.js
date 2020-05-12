@@ -25,14 +25,22 @@ router.get('/products', (req, res) => {
 
 // GET /products/{id}
 router.get('/products/:id', (req, res) => {
-	global.db.findOne('products', req.params.id, (err, docs) => {
+	global.db.findOne('products', req.params.id, (err, doc) => {
 		if (err) { res.status(500).json(err) }
-		else { res.json(docs) }
+		else { res.json(doc) }
 	})
 })
 
-// GET /product/{search}
-router.get('/product/:search', (req, res) => {
+// GET /products/sku/{sku}
+router.get('/product/sku/:sku', (req, res) => {
+	global.db.findSKU('products', req.params.sku, (err, doc) => {
+		if (err) { res.status(500).json(err) }
+		else { res.json(doc) }
+	})
+})
+
+// GET /product/search/{search}
+router.get('/product/search/:search', (req, res) => {
 	global.db.find('products', req.params.search, (err, docs) => {
 		if (err) { res.status(500).json(err) }
 		else { res.json(docs) }
@@ -40,7 +48,7 @@ router.get('/product/:search', (req, res) => {
 })
 
 // POST /products
-router.post('/products', (req, res) => {
+router.post('/product', (req, res) => {
     global.db.insertOne('products', req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Produto cadastrado com sucesso!' }) }
