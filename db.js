@@ -64,7 +64,7 @@ function findLast(collection, search, callback) {
     global.conn.collection(collection).find(values).sort({'registrationDate':-1}).limit(1).toArray(callback)
 }
 
-//function findLast(collection, callback) {
+//function findLast(collection, callback) { 
 //	log(collection + '/findLast()...')
 //   global.conn.collection(collection).find().sort({'_id': -1}).limit(1).toArray(callback)
 //}
