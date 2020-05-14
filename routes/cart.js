@@ -73,6 +73,15 @@ router.patch('/cart/:id', (req, res) => {
     })
 })
 
+// PATCH /cart/many/{id}
+router.patch('/cart/many/:id', (req, res) => {
+	console.log('patch/cart/many/:id ' + req.params.id)
+    global.db.patchMany('cart', req.params.id, req.body, (err, result) => {
+        if (err) { res.status(500).json(err) }
+        else { res.json({ message: 'Cart atualizado com sucesso!' }) }
+    })
+})
+
 // PATCH /cart/push/{id}
 router.patch('/cart/push/:id', (req, res) => {
 	console.log('patch/cart/push/:id ' + req.params.id)

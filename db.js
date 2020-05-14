@@ -81,27 +81,32 @@ function updateOne(collection, id, object, callback) {
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, object, callback)
 }
 
-function patchOne(collection, id, updates, callback) {
+function patchOne(collection, id, update, callback) {
 	log(collection + '/patchOne...')
-    global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, { $set: updates }, callback)
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, { $set: update }, callback)
 }
 
-function set(collection, id, updates, callback) {
+function patchMany(collection, id, updates, callback) {
+	log(collection + '/patchMany...')
+    global.conn.collection(collection).updateMany({ _id: new ObjectId(id) }, { $set: updates }, callback)
+}
+
+function set(collection, id, update, callback) {
 	log(collection + '/set...')	
 	let ids = id.split('_')	
 //	console.log('ID1: ' + ids[0])
 //	console.log('ID2: ' + ids[1])	
-    global.conn.collection(collection).updateOne({ _id: new ObjectId(ids[0]), 'products._id': ids[1]}, { $set: updates }, callback)
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(ids[0]), 'products._id': ids[1]}, { $set: update }, callback)
 }
 
-function push(collection, id, updates, callback) {
+function push(collection, id, update, callback) {
 	log(collection + '/push...')	
-    global.conn.collection(collection).updateOne({ _id: new ObjectId(id)}, { $set: updates }, callback)
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(id)}, { $set: update }, callback)
 }
 
-function pull(collection, id, updates, callback) {
+function pull(collection, id, update, callback) {
 	log(collection + '/pull...')	
-    global.conn.collection(collection).updateOne({ _id: new ObjectId(id)}, {$pull: updates }, callback)
+    global.conn.collection(collection).updateOne({ _id: new ObjectId(id)}, {$pull: update }, callback)
 }
 
 function deleteOne(collection, id, callback) {
@@ -109,4 +114,4 @@ function deleteOne(collection, id, callback) {
     global.conn.collection(collection).deleteOne({ _id: new ObjectId(id) }, callback)
 }
 
-module.exports = { findAll, findLast, findOne, findSKU, find, insertOne, updateOne, set, push, patchOne, pull, deleteOne }
+module.exports = { findAll, findLast, findOne, findSKU, find, insertOne, updateOne, set, push, patchOne, patchMany, pull, deleteOne }
