@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
 // GET /cart
 router.get('/cart', (req, res) => {
-	global.db.findAll('cart', (err, docs) => {
+	global.db.findAll('carts', (err, docs) => {
 		if (err) { res.status(500).json(err) }
 		else { res.json(docs) }
 	})
@@ -25,7 +25,7 @@ router.get('/cart', (req, res) => {
 
 // GET /cart/{id}
 router.get('/cart/:id', (req, res) => {
-	global.db.findOne('cart', req.params.id, (err, doc) => {
+	global.db.findOne('carts', req.params.id, (err, doc) => {
     if (err) { res.status(500).json(err) }
     else { res.json(doc) }
 	})
@@ -33,7 +33,7 @@ router.get('/cart/:id', (req, res) => {
 
 // GET /cart/search/{search}
 router.get('/cart/search/:search', (req, res) => {
-	global.db.find('cart', req.params.search, (err, docs) => {	
+	global.db.find('carts', req.params.search, (err, docs) => {	
 		if (err) { res.status(500).json(err) }
 		else { res.json(docs) }
 	})
@@ -41,7 +41,7 @@ router.get('/cart/search/:search', (req, res) => {
 
 // GET /cart/last/{search}
 router.get('/cart/last/:search', (req, res) => {
-	global.db.findLast('cart', req.params.search, (err, docs) => {
+	global.db.findLast('carts', req.params.search, (err, docs) => {
 		if (err) { res.status(500).json(err) }
 		else { res.json(docs) }
 	})
@@ -49,7 +49,7 @@ router.get('/cart/last/:search', (req, res) => {
 
 // POST /cart
 router.post('/cart', (req, res) => {
-    global.db.insertOne('cart', req.body, (err, result) => {
+    global.db.insertOne('carts', req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart cadastrado com sucesso!' }) }
     })
@@ -58,7 +58,7 @@ router.post('/cart', (req, res) => {
 // PUT /cart/{id}
 router.put('/cart/:id', (req, res) => {
 	console.log('put/cart/:id ' + req.params.id)
-    global.db.updateOne('cart', req.params.id, req.body, (err, result) => {
+    global.db.updateOne('carts', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
     })
@@ -67,7 +67,7 @@ router.put('/cart/:id', (req, res) => {
 // PATCH /cart/{id}
 router.patch('/cart/:id', (req, res) => {
 	console.log('patch/cart/:id ' + req.params.id)
-    global.db.patchOne('cart', req.params.id, req.body, (err, result) => {
+    global.db.patchOne('carts', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
     })
@@ -76,7 +76,7 @@ router.patch('/cart/:id', (req, res) => {
 // PATCH /cart/many/{id}
 router.patch('/cart/many/:id', (req, res) => {
 	console.log('patch/cart/many/:id ' + req.params.id)
-    global.db.patchMany('cart', req.params.id, req.body, (err, result) => {
+    global.db.patchMany('carts', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
     })
@@ -85,7 +85,7 @@ router.patch('/cart/many/:id', (req, res) => {
 // PATCH /cart/push/{id}
 router.patch('/cart/push/:id', (req, res) => {
 	console.log('patch/cart/push/:id ' + req.params.id)
-    global.db.push('cart', req.params.id, req.body, (err, result) => {
+    global.db.push('carts', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Product inserido com sucesso!' }) }
     })
@@ -94,7 +94,7 @@ router.patch('/cart/push/:id', (req, res) => {
 // PATCH /cart/set/{id}
 router.patch('/cart/set/:id', (req, res) => {
 	console.log('patch/cart/set/:id ' + req.params.id)
-    global.db.set('cart', req.params.id, req.body, (err, result) => {
+    global.db.set('carts', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart atualizado com sucesso!' }) }
     })
@@ -103,7 +103,7 @@ router.patch('/cart/set/:id', (req, res) => {
 // PATCH /cart/pull/{id}
 router.patch('/cart/pull/:id', (req, res) => {
 	console.log('patch/cart/pull/:id ' + req.params.id)
-    global.db.pull('cart', req.params.id, req.body, (err, result) => {
+    global.db.pull('carts', req.params.id, req.body, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart excluído com sucesso!' }) }
     })
@@ -111,7 +111,7 @@ router.patch('/cart/pull/:id', (req, res) => {
 
 // DELETE /cart/{id}
 router.delete('/cart/:id', (req, res) => {
-    global.db.deleteOne('cart', req.params.id, (err, result) => {
+    global.db.deleteOne('carts', req.params.id, (err, result) => {
         if (err) { res.status(500).json(err) }
         else { res.json({ message: 'Cart excluído com sucesso!' }) }
     })
