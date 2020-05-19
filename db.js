@@ -20,6 +20,20 @@ function log(message) {
     // console.log('****************************************')
 }
 
+function find(collection, search, callback) {
+	log(collection + '/find(search)...')
+	let obj = JSON.parse(search)
+	let values = obj.values
+	let limit = obj.limit
+	let fields = obj.fields
+	let ordination = obj.ordination	
+//	console.log('1) values: ' + JSON.stringify(values))
+//	console.log('2) fields: ' + fields)
+//	console.log('3) ordination: ' + ordination)
+//	console.log('4) limit: ' + limit)	
+    global.conn.collection(collection).find(values).sort({fields:ordination}).limit(limit).toArray(callback)
+}
+
 function findAll(collection, callback) {
 	log(collection + '/findAll...')
     global.conn.collection(collection).find().toArray(callback) 
@@ -40,20 +54,6 @@ function findSKU(collection, value, callback) {
 //	console.log('OBJ: ' + JSON.stringify(obj))
 //	console.log('SKU: ' + JSON.stringify(obj.sku))
     global.conn.collection(collection).findOne({sku: value}, callback)
-}
-
-function find(collection, search, callback) {
-	log(collection + '/find(search)...')
-	let obj = JSON.parse(search)
-	let values = obj.values
-	let limit = obj.limit
-	let fields = obj.fields
-	let ordination = obj.ordination	
-//	console.log('1) values: ' + JSON.stringify(values))
-//	console.log('2) fields: ' + fields)
-//	console.log('3) ordination: ' + ordination)
-//	console.log('4) limit: ' + limit)	
-    global.conn.collection(collection).find(values).sort({fields:ordination}).limit(limit).toArray(callback)
 }
 
 function findLast(collection, search, callback) {
@@ -114,4 +114,4 @@ function deleteOne(collection, id, callback) {
     global.conn.collection(collection).deleteOne({ _id: new ObjectId(id) }, callback)
 }
 
-module.exports = { findAll, findLast, findOne, findSKU, find, insertOne, updateOne, set, push, patchOne, patchMany, pull, deleteOne }
+module.exports = { find, findAll, findLast, findOne, findSKU, insertOne, updateOne, patchOne, patchMany, set, push, pull, deleteOne }
