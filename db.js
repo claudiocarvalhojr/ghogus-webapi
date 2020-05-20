@@ -40,12 +40,12 @@ function findAll(collection, callback) {
 }
 
 function findOne(collection, id, callback) {
-	log(collection + '/findOne(id)...')
+	log(collection + '/findOne(' + id + ')...')
     global.conn.collection(collection).findOne(new ObjectId(id), callback)
 }
 
 function findSKU(collection, value, callback) {
-	log(collection + '/findSKU(name, value)...')
+	log(collection + '/findSKU(' + value + ')...')
 //	console.log('NAME: ' + field)
 //	console.log('NAME: ' + typeof field)
 //	console.log('VALUE: ' + value)
@@ -61,7 +61,7 @@ function findLast(collection, search, callback) {
 	let obj = JSON.parse(search)
 	let values = obj.values
 //	console.log('1) values: ' + JSON.stringify(values))
-    global.conn.collection(collection).find(values).sort({'registrationDate':-1}).limit(1).toArray(callback)
+    global.conn.collection(collection).find(values).sort({'_id':-1}).limit(1).toArray(callback)
 }
 
 //function findLast(collection, callback) { 
@@ -75,24 +75,24 @@ function insertOne(collection, object, callback) {
 }
 
 function updateOne(collection, id, object, callback) {
-	log(collection + '/updateOne...')
+	log(collection + '/updateOne(' + id + ')...')
 //	console.log('id: ' + id)
 //	console.log('object: ' + JSON.stringify(object))
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, object, callback)
 }
 
 function patchOne(collection, id, update, callback) {
-	log(collection + '/patchOne...')
+	log(collection + '/patchOne(' + id + ')...')
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id) }, { $set: update }, callback)
 }
 
 function patchMany(collection, id, updates, callback) {
-	log(collection + '/patchMany...')
+	log(collection + '/patchMany(' + id + ')...')
     global.conn.collection(collection).updateMany({ _id: new ObjectId(id) }, { $set: updates }, callback)
 }
 
 function set(collection, id, update, callback) {
-	log(collection + '/set...')	
+	log(collection + '/set(' + id + ')...')	
 	let ids = id.split('_')	
 //	console.log('ID1: ' + ids[0])
 //	console.log('ID2: ' + ids[1])	
@@ -100,17 +100,17 @@ function set(collection, id, update, callback) {
 }
 
 function push(collection, id, update, callback) {
-	log(collection + '/push...')	
+	log(collection + '/push(' + id + ')...')	
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id)}, { $set: update }, callback)
 }
 
 function pull(collection, id, update, callback) {
-	log(collection + '/pull...')	
+	log(collection + '/pull(' + id + ')...')	
     global.conn.collection(collection).updateOne({ _id: new ObjectId(id)}, {$pull: update }, callback)
 }
 
 function deleteOne(collection, id, callback) {
-	log(collection + '/deleteOne...')
+	log(collection + '/deleteOne(' + id + ')...')
     global.conn.collection(collection).deleteOne({ _id: new ObjectId(id) }, callback)
 }
 
